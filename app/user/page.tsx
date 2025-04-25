@@ -15,7 +15,8 @@ export default function Home() {
           Welcome back, Agent 👁️
         </h1>
         <p className="text-lg sm:text-xl text-slate-300 max-w-xl mx-auto animate-fade-in delay-100">
-          You've entered the secure zone. Below are your classified secrets:
+          You&lsquo;ve entered the secure zone. Below are your classified
+          secrets:
         </p>
 
         <ul className="text-left text-slate-400 text-base sm:text-lg font-mono space-y-2 animate-fade-in delay-200 max-w-md mx-auto">

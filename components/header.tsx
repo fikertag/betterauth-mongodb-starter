@@ -36,10 +36,10 @@ export function Header() {
                 </SheetHeader>
 
                 <ul className="flex gap-10 flex-col mx-10">
-                  <Link href={"/unprotected"}>Unprotected</Link>
-                  <Link href={"/protected"}>Protected</Link>
-                  <Link href={"/admin"}>admin</Link>
-                  <Link href={"/owner"}>owner</Link>
+                  <Link href={"/public"}>Public</Link>
+                  <Link href={"/user"}>User</Link>
+                  <Link href={"/admin"}>Admin</Link>
+                  <Link href={"/owner"}>Owner</Link>
                 </ul>
 
                 <SheetFooter>
@@ -54,10 +54,10 @@ export function Header() {
         </Link>
 
         <ul className="hidden gap-10 md:flex">
-          <Link href={"/unprotected"}>Unprotected</Link>
-          <Link href={"/protected"}>Protected</Link>
-          <Link href={"/admin"}>admin</Link>
-          <Link href={"/owner"}>owner</Link>
+          <Link href={"/public"}>Public</Link>
+          <Link href={"/user"}>User</Link>
+          <Link href={"/admin"}>Admin</Link>
+          <Link href={"/owner"}>Owner</Link>
         </ul>
 
         <div className="flex items-center gap-2">

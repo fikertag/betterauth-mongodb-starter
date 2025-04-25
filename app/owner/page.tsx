@@ -46,8 +46,8 @@ export default function Home() {
           Greetings, Commander 👑
         </h1>
         <p className="text-lg sm:text-xl text-slate-300 max-w-xl mx-auto animate-fade-in delay-100">
-          You're in the Owner's zone. All systems are operational and ready to
-          deploy.
+          You&lsquo;re in the Owner&lsquo;s zone. All systems are operational
+          and ready to deploy.
         </p>
       </div>
     </main>
