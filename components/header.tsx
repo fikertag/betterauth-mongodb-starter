@@ -31,17 +31,17 @@ export function Header() {
                   <Menu size={17} />
                 </Button>
               </SheetTrigger>
+
               <SheetContent side={"left"}>
                 <SheetHeader className="mt-3">
                   <SheetTitle>
-                    {" "}
                     <span className="text-xl font-semibold flex items-center gap-2">
                       <Zap size={15} /> Fikiryilkal
                     </span>
                   </SheetTitle>
                   <Separator className="mt-3" />
                 </SheetHeader>
-                <SheetClose asChild></SheetClose>
+
                 <ul className="flex gap-4 flex-col mx-10 font-medium text-sm">
                   <li>
                     <SheetClose asChild>

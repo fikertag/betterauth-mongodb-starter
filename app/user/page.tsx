@@ -4,11 +4,6 @@ export default function Home() {
       style={{ minHeight: "calc(100vh - 57px)" }}
       className="flex items-center justify-center overflow-hidden"
     >
-      {/* Decorative glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 w-[500px] h-[400px] bg-indigo-800 rounded-full blur-3xl opacity-20 -translate-x-1/2 animate-pulse" />
-      </div>
-
       {/* Secret Content */}
       <div className="text-center space-y-6 z-10">
         <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight  mb-8">
