@@ -91,11 +91,6 @@ export function Header() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="https://github.com/daveyplate/better-auth-nextjs-starter"
-            target="_blank"
-          ></Link>
-
           <div className="hidden min-[400px]:flex mx-2 ">
             <ModeToggle />
           </div>
