@@ -1,47 +1,74 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
 import Link from "next/link";
-
+import { Menu } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "./mode-toggle";
-// import { Button } from "./ui/button";
+import { Button } from "./ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/60 px-4 py-3 backdrop-blur">
       <div className="container mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <svg
-            className="size-5"
-            fill="none"
-            height="45"
-            viewBox="0 0 60 45"
-            width="60"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              className="fill-black dark:fill-white"
-              clipRule="evenodd"
-              d="M0 0H15V45H0V0ZM45 0H60V45H45V0ZM20 0H40V15H20V0ZM20 30H40V45H20V30Z"
-              fillRule="evenodd"
-            />
-          </svg>
-          BETTER-AUTH. STARTER
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  size={"icon"}
+                  variant={"outline"}
+                  className="rounded-full size-8"
+                >
+                  <Menu size={17} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side={"left"}>
+                <SheetHeader className="mt-3">
+                  <SheetTitle>♟ Fikiryilkal</SheetTitle>
+                  <Separator className="mt-3" />
+                </SheetHeader>
+
+                <ul className="flex gap-10 flex-col mx-10">
+                  <Link href={"/unprotected"}>Unprotected</Link>
+                  <Link href={"/protected"}>Protected</Link>
+                  <Link href={"/role1"}>Role1</Link>
+                  <Link href={"/role2"}>Role2</Link>
+                </ul>
+
+                <SheetFooter>
+                  <div className="flex sm:hidden justify-end">
+                    <ModeToggle />
+                  </div>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
+          </div>
+          ♟ Fikiryilkal
         </Link>
+
+        <ul className="hidden gap-10 md:flex">
+          <Link href={"/unprotected"}>Unprotected</Link>
+          <Link href={"/protected"}>Protected</Link>
+          <Link href={"/role1"}>Role1</Link>
+          <Link href={"/role2"}>Role2</Link>
+        </ul>
 
         <div className="flex items-center gap-2">
           <Link
             href="https://github.com/daveyplate/better-auth-nextjs-starter"
             target="_blank"
-          >
-            {/* <Button
-              variant="outline"
-              size="icon"
-              className="size-8 rounded-full"
-            >
-              <GitHubIcon />
-            </Button> */}
-          </Link>
+          ></Link>
 
-          <ModeToggle />
+          <div className="hidden min-[400px]:flex ">
+            <ModeToggle />
+          </div>
           <UserButton />
         </div>
       </div>
