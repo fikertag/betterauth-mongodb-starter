@@ -1,6 +1,6 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, Zap } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
@@ -31,11 +31,16 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side={"left"}>
                 <SheetHeader className="mt-3">
-                  <SheetTitle>♟ Fikiryilkal</SheetTitle>
+                  <SheetTitle>
+                    {" "}
+                    <span className="text-xl font-semibold flex items-center gap-2">
+                      <Zap size={15} /> Fikiryilkal
+                    </span>
+                  </SheetTitle>
                   <Separator className="mt-3" />
                 </SheetHeader>
 
-                <ul className="flex gap-10 flex-col mx-10">
+                <ul className="flex gap-10 flex-col mx-10 font-semibold">
                   <Link href={"/public"}>Public</Link>
                   <Link href={"/user"}>User</Link>
                   <Link href={"/admin"}>Admin</Link>
@@ -50,11 +55,15 @@ export function Header() {
               </SheetContent>
             </Sheet>
           </div>
-          ♟ Fikiryilkal
+
+          <span className="text-xl font-semibold flex items-center gap-2">
+            {" "}
+            <Zap size={15} /> Fikiryilkal
+          </span>
         </Link>
 
-        <ul className="hidden gap-10 md:flex">
-          <Link href={"/public"}>Public</Link>
+        <ul className="hidden gap-10 md:flex font-semibold">
+          <Link href={"/public"}>Public </Link>
           <Link href={"/user"}>User</Link>
           <Link href={"/admin"}>Admin</Link>
           <Link href={"/owner"}>Owner</Link>
@@ -66,7 +75,7 @@ export function Header() {
             target="_blank"
           ></Link>
 
-          <div className="hidden min-[400px]:flex ">
+          <div className="hidden min-[400px]:flex mx-2 ">
             <ModeToggle />
           </div>
           <UserButton />
