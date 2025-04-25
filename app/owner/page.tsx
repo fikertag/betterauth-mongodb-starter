@@ -6,21 +6,24 @@ export default function Home() {
   const { data: session, isPending: isSessionLoading } =
     authClient.useSession();
 
-  const isAdmin = session?.user?.role === "admin";
+  const isOwner = session?.user?.role === "owner";
 
   if (isSessionLoading) {
     return (
       <main className="flex items-center justify-center min-h-[calc(100vh-57px)] text-white bg-slate-950">
-        <p className="text-slate-300 animate-pulse">Checking admin access...</p>
+        <p className="text-slate-300 animate-pulse">
+          Verifying owner access...
+        </p>
       </main>
     );
   }
 
-  if (!isAdmin) {
+  if (!isOwner) {
     return (
       <main className="flex items-center justify-center min-h-[calc(100vh-57px)] text-white bg-slate-950">
         <p className="text-red-400 text-center">
-          🚫 Access Denied. This page is for admins only. you are{" "}
+          🚫 Access Denied. This page is for{" "}
+          <span className="font-bold">owners</span> only. you are{" "}
           {session?.user?.role}
         </p>
       </main>
@@ -37,14 +40,14 @@ export default function Home() {
         <div className="absolute top-1/4 left-1/2 w-[500px] h-[500px] bg-indigo-800 rounded-full blur-3xl opacity-20 -translate-x-1/2 animate-pulse" />
       </div>
 
-      {/* Admin Content */}
+      {/* Owner Content */}
       <div className="text-center space-y-6 z-10">
         <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-300 to-white bg-clip-text text-transparent animate-fade-in">
-          Welcome, Admin 🛡️
+          Greetings, Commander 👑
         </h1>
         <p className="text-lg sm:text-xl text-slate-300 max-w-xl mx-auto animate-fade-in delay-100">
-          You are viewing a protected admin-only page in your Better Auth +
-          MongoDB starter.
+          You're in the Owner's zone. All systems are operational and ready to
+          deploy.
         </p>
       </div>
     </main>
