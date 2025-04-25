@@ -25,79 +25,16 @@ export const auth = betterAuth({
     enabled: true,
     // requireEmailVerification: true,S
   },
-  // user: {
-  //   additionalFields: {
-  //     role: {
-  //       type: "string",
-  //       required: false,
-  //       defaultValue: "influencer",
-  //     },
-
-  //     location: {
-  //       type: "string",
-  //       required: false,
-  //       defaultValue: "Tecno",
-  //     },
-  //     socialMedia: {
-  //       type: "string", // Store as a JSON string
-  //       required: false,
-  //       defaultValue: JSON.stringify([]), // Default is an empty array as a string
-  //     },
-  //     verified: {
-  //       type: "boolean",
-  //       required: false,
-  //       defaultValue: false,
-  //     },
-  //     rating: {
-  //       type: "number",
-  //       required: false,
-  //       defaultValue: 0,
-  //     },
-  //     totalEarnings: {
-  //       type: "number",
-  //       required: false,
-  //       defaultValue: 0,
-  //     },
-  //     bio: {
-  //       type: "string",
-  //       required: false,
-  //       defaultValue: " ",
-  //     },
-  //     price: {
-  //       type: "number",
-  //       required: false,
-  //       defaultValue: 0,
-  //     },
-  //     companyName: {
-  //       type: "string",
-  //       required: false, // Not strictly required since we can't do conditional logic
-  //     },
-  //     industry: {
-  //       type: "string",
-  //       required: false,
-  //     },
-  //     businessPhone: {
-  //       type: "string",
-  //       required: false,
-  //       pattern: "^\\+?[0-9\\s-]{10,}$",
-  //     },
-  //     businessSize: {
-  //       type: "string",
-  //       required: false,
-  //       enum: ["startup", "small", "medium", "large"],
-  //     },
-  //     businessVerified: {
-  //       type: "boolean",
-  //       required: false,
-  //       defaultValue: false,
-  //     },
-  //     onboarded: {
-  //       type: "boolean",
-  //       required: false,
-  //       defaultValue: false,
-  //     },
-  //   },
-  // },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "user",
+        enum: ["user", "admin", "owner"],
+      },
+    },
+  },
 
   // emailVerification: {
   //   sendVerificationEmail: async ({ user, url }) => {
