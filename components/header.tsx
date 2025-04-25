@@ -4,10 +4,12 @@ import { Menu, Zap } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
+import { NavItem } from "./nav-item";
 import {
   Sheet,
   SheetContent,
   SheetFooter,
+  SheetClose,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -17,7 +19,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/60 px-4 py-3 backdrop-blur">
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -39,12 +41,28 @@ export function Header() {
                   </SheetTitle>
                   <Separator className="mt-3" />
                 </SheetHeader>
-
-                <ul className="flex gap-10 flex-col mx-10 font-semibold">
-                  <Link href={"/public"}>Public</Link>
-                  <Link href={"/user"}>User</Link>
-                  <Link href={"/admin"}>Admin</Link>
-                  <Link href={"/owner"}>Owner</Link>
+                <SheetClose asChild></SheetClose>
+                <ul className="flex gap-4 flex-col mx-10 font-medium text-sm">
+                  <li>
+                    <SheetClose asChild>
+                      <NavItem href="/public" label="Public" />
+                    </SheetClose>
+                  </li>
+                  <li>
+                    <SheetClose asChild>
+                      <NavItem href="/user" label="User" />
+                    </SheetClose>
+                  </li>
+                  <li>
+                    <SheetClose asChild>
+                      <NavItem href="/admin" label="Admin" />
+                    </SheetClose>
+                  </li>
+                  <li>
+                    <SheetClose asChild>
+                      <NavItem href="/owner" label="Owner" />
+                    </SheetClose>
+                  </li>
                 </ul>
 
                 <SheetFooter>
@@ -56,17 +74,20 @@ export function Header() {
             </Sheet>
           </div>
 
-          <span className="text-xl font-semibold flex items-center gap-2">
+          <Link
+            href={"/"}
+            className="text-xl font-semibold flex items-center gap-2"
+          >
             {" "}
             <Zap size={15} /> Fikiryilkal
-          </span>
-        </Link>
+          </Link>
+        </div>
 
         <ul className="hidden gap-10 md:flex font-semibold">
-          <Link href={"/public"}>Public </Link>
-          <Link href={"/user"}>User</Link>
-          <Link href={"/admin"}>Admin</Link>
-          <Link href={"/owner"}>Owner</Link>
+          <NavItem href="/public" label="Public" />
+          <NavItem href="/user" label="User" />
+          <NavItem href="/admin" label="Admin" />
+          <NavItem href="/owner" label="Owner" />
         </ul>
 
         <div className="flex items-center gap-2">
