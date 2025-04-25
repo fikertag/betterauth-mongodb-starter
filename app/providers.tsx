@@ -65,6 +65,18 @@ export function Providers({ children }: { children: ReactNode }) {
             onSessionChange={() => {
               router.refresh();
             }}
+            uploadAvatar={async (file: File) => {
+              const formData = new FormData();
+              formData.append("avatar", file);
+
+              const res = await fetch("/api/uploadAvatar", {
+                method: "POST",
+                body: formData,
+              });
+
+              const { data } = await res.json();
+              return data.url;
+            }}
             Link={Link}
             providers={["google"]}
           >
