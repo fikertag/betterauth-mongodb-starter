@@ -75,8 +75,8 @@ export function Providers({ children }: { children: ReactNode }) {
                 body: formData,
               });
 
-              const { data } = await res.json();
-              return data.url;
+              const { url } = await res.json();
+              return url;
             }}
             Link={Link}
             providers={["google"]}
