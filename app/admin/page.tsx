@@ -24,24 +24,52 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  image: string;
+  role: "user" | "admin" | "owner";
+  createdAt: Date;
+  updatedAt: Date;
+  avatarColor?: string;
+}
+
+interface UsersResponse {
+  data?: {
+    users: Array<{
+      id: string;
+      name: string;
+      email: string;
+      emailVerified: boolean;
+      image: string;
+      role: string;
+      createdAt: string | Date;
+      updatedAt: string | Date;
+    }>;
+    total?: number;
+    limit?: number;
+    offset?: number;
+  };
+}
+
 export default function AdminDashboard() {
   const { data: session, isPending: isSessionLoading } =
     authClient.useSession();
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const isAdmin =
     session?.user?.role === "admin" || session?.user?.role === "owner";
 
-  // Mask email (e.g., "user@example.com" → "us...@example.com")
-  const maskEmail = (email: string) => {
+  const maskEmail = (email: string): string => {
     const [username, domain] = email.split("@");
     return `${username.substring(0, 2)}...@${domain}`;
   };
 
-  // Generate consistent color based on user ID
-  const getAvatarColor = (id: string) => {
+  const getAvatarColor = (id: string): string => {
     const colors = [
       "#3b82f6",
       "#8b5cf6",
@@ -60,21 +88,22 @@ export default function AdminDashboard() {
     if (isAdmin) {
       const fetchUsers = async () => {
         try {
-          const response = await authClient.admin.listUsers({
+          const response = (await authClient.admin.listUsers({
             query: { limit: 50 },
-          });
+          })) as UsersResponse;
 
           const userData =
-            response.data?.users?.map((user: any) => ({
+            response.data?.users?.map((user) => ({
               ...user,
               createdAt: new Date(user.createdAt),
               updatedAt: new Date(user.updatedAt),
               avatarColor: getAvatarColor(user.id),
+              role: user.role as User["role"], // Type assertion for known roles
             })) || [];
 
           setUsers(userData);
-        } catch (error) {
-          console.error("Failed to fetch users:", error);
+        } catch (err) {
+          console.error("Failed to fetch users:", err);
           setError("Failed to fetch users. Please try again.");
         } finally {
           setIsLoading(false);
@@ -83,6 +112,8 @@ export default function AdminDashboard() {
       fetchUsers();
     }
   }, [isAdmin]);
+
+  // ... rest of the component remains the same ...
 
   if (isSessionLoading) {
     return (
