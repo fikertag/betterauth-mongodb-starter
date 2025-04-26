@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 // import { sendEmail } from "./email-service";
 // import { passkey } from "better-auth/plugins/passkey";
+import { admin } from "better-auth/plugins";
 import dbConnect from "@/lib/mongoose";
 import mongoose from "mongoose";
 
@@ -48,4 +49,5 @@ export const auth = betterAuth({
   // },
 
   // plugins: [passkey()],
+  plugins: [admin()],
 });
