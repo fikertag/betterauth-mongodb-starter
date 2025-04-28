@@ -1,12 +1,12 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { Resend } from "resend";
-import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
+// import { Resend } from "resend";
+// import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
 import { admin } from "better-auth/plugins";
 import dbConnect from "@/lib/mongoose";
 import mongoose from "mongoose";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 await dbConnect();
 
@@ -27,7 +27,7 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    // requireEmailVerification: true,
   },
   user: {
     additionalFields: {
@@ -40,26 +40,26 @@ export const auth = betterAuth({
     },
   },
 
-  emailVerification: {
-    sendVerificationEmail: async ({ user, url, token }, request) => {
-      const name = user.name || user.email.split("@")[0];
+  // emailVerification: {
+  //   sendVerificationEmail: async ({ user, url, token }, request) => {
+  //     const name = user.name || user.email.split("@")[0];
 
-      await resend.emails.send({
-        from: "better-auth-mongodb-starter",
-        to: user.email,
-        subject: "Verify your email address",
-        react: EmailTemplate({
-          action: "Verify Email",
-          content: `heloo ${name} /n click the link to verify your email address`,
-          heading: "Verify Email",
-          siteName: "bettrAuth starter",
-          baseUrl: "https://better-auth-mongodb-starter.vercel.app",
-          url,
-        }),
-      });
-    },
-    autoSignInAfterVerification: true,
-    sendOnSignUp: true,
-  },
+  //     await resend.emails.send({
+  //       from: "better-auth-mongodb-starter",
+  //       to: user.email,
+  //       subject: "Verify your email address",
+  //       react: EmailTemplate({
+  //         action: "Verify Email",
+  //         content: `heloo ${name} /n click the link to verify your email address`,
+  //         heading: "Verify Email",
+  //         siteName: "bettrAuth starter",
+  //         baseUrl: "https://better-auth-mongodb-starter.vercel.app",
+  //         url,
+  //       }),
+  //     });
+  //   },
+  //   autoSignInAfterVerification: true,
+  //   sendOnSignUp: true,
+  // },
   plugins: [admin()],
 });
