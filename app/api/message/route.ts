@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { senderId, content, senderName, senderImage } = await request.json();
+    const { senderId, content } = await request.json();
 
     // Validate input
     if (!mongoose.Types.ObjectId.isValid(senderId) || !content?.trim()) {
@@ -22,8 +22,6 @@ export async function POST(request: Request) {
     const newMessage = new Message({
       senderId,
       content: content.trim(),
-      senderName,
-      senderImage,
     });
 
     const savedMessage = await newMessage.save();
@@ -43,15 +41,33 @@ export async function POST(request: Request) {
 export async function GET() {
   await dbConnect();
 
-  try {
-    const messages = await Message.find().sort({ createdAt: -1 });
+  const messages = await Message.aggregate([
+    { $sort: { createdAt: 1 } },
+    {
+      $lookup: {
+        from: "user",
+        localField: "senderId",
+        foreignField: "_id",
+        as: "senderInfo",
+      },
+    },
+    {
+      $unwind: {
+        path: "$senderInfo",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        senderId: 1,
+        content: 1,
+        createdAt: 1,
+        senderName: "$senderInfo.name",
+        senderImage: "$senderInfo.image",
+      },
+    },
+  ]);
 
-    return NextResponse.json(messages, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching messages:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(messages);
 }

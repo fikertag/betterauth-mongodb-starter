@@ -7,11 +7,13 @@ import { authClient } from "@/lib/auth-client";
 
 interface Message {
   _id: string;
-  senderId: string;
+  senderId: {
+    _id: string;
+    name: string;
+    image: string;
+  };
   content: string;
   createdAt: string;
-  senderName?: string;
-  senderImage?: string;
 }
 
 interface MessageContextType {
@@ -34,7 +36,7 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(`/api/messages`);
+      const response = await axios.get(`/api/message`);
       setMessages(response.data);
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -73,6 +75,10 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
       fetchMessages();
     }
   }, [session?.user.id]);
+
+  useEffect(() => {
+    console.log("Messages updated:", messages);
+  }, [messages]);
 
   return (
     <MessageContext.Provider value={{ messages, fetchMessages, sendMessage }}>

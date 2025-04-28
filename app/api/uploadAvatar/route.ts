@@ -28,8 +28,6 @@ export async function POST(request: Request) {
       })
       .end(buffer);
   });
-  console.log(response);
-
   return NextResponse.json({
     url: response.secure_url,
     publicId: response.public_id,
