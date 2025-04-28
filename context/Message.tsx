@@ -60,7 +60,7 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const channel = pusherClient.subscribe(`global-chat`);
     channel.bind("new-message", (newMessage: Message) => {
-      setMessages((prev) => [newMessage, ...prev]);
+      setMessages((prev) => [...prev, newMessage]);
     });
 
     return () => {
@@ -75,10 +75,6 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
       fetchMessages();
     }
   }, [session?.user.id]);
-
-  useEffect(() => {
-    console.log("Messages updated:", messages);
-  }, [messages]);
 
   return (
     <MessageContext.Provider value={{ messages, fetchMessages, sendMessage }}>
