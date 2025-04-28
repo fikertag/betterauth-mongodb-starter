@@ -25,8 +25,40 @@ export async function POST(request: Request) {
     });
 
     const savedMessage = await newMessage.save();
+
+    const populatedMessage = await Message.aggregate([
+      { $match: { _id: savedMessage._id } }, // Only the new message
+      {
+        $lookup: {
+          from: "user",
+          localField: "senderId",
+          foreignField: "_id",
+          as: "senderInfo",
+        },
+      },
+      {
+        $unwind: {
+          path: "$senderInfo",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          senderId: 1,
+          content: 1,
+          createdAt: 1,
+          senderName: "$senderInfo.name",
+          senderImage: "$senderInfo.image",
+        },
+      },
+    ]);
     // Trigger global chat
-    await pusherServer.trigger("global-chat", "new-message", savedMessage);
+    await pusherServer.trigger(
+      "global-chat",
+      "new-message",
+      populatedMessage[0]
+    );
 
     return NextResponse.json(savedMessage, { status: 201 });
   } catch (error) {
