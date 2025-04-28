@@ -58,11 +58,6 @@ export function Header() {
                       <NavItem href="/admin" label="Admin" />
                     </SheetClose>
                   </li>
-                  <li>
-                    <SheetClose asChild>
-                      <NavItem href="/owner" label="Owner" />
-                    </SheetClose>
-                  </li>
                 </ul>
 
                 <SheetFooter>
@@ -87,7 +82,6 @@ export function Header() {
           <NavItem href="/public" label="Public" />
           <NavItem href="/user" label="User" />
           <NavItem href="/admin" label="Admin" />
-          <NavItem href="/owner" label="Owner" />
         </ul>
 
         <div className="flex items-center gap-2">

@@ -8,9 +8,13 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("auth/sign-up", request.url));
   }
 
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/public", request.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/user", "/admin", "/owner"],
+  matcher: ["/user", "/admin", "/"],
 };
