@@ -77,7 +77,7 @@ export default function ChatPage() {
                 )}
 
                 <div className={`${isCurrentUser ? "text-right" : ""}`}>
-                  <div className="flex items-end gap-2 mb-1">
+                  <div className="flex items-end justify-end gap-2 mb-1">
                     {isCurrentUser ? (
                       <>
                         <span className="text-xs text-muted-foreground">
@@ -105,7 +105,7 @@ export default function ChatPage() {
                     )}
                   </div>
                   <div
-                    className={`px-3 py-2 text-sm rounded-md max-w-xs ${
+                    className={`px-3 py-2 text-sm rounded-md max-w-xs text-wrap  ${
                       isCurrentUser
                         ? "bg-blue-500 text-white ml-auto"
                         : "bg-green-900 text-white"
@@ -156,7 +156,7 @@ export default function ChatPage() {
           {sending ? (
             <div className="h-4 w-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
           ) : (
-            <SendHorizonal size={18} className="mr-1" />
+            <SendHorizonal size={18} className="" />
           )}
         </Button>
       </form>
