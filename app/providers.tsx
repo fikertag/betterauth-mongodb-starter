@@ -65,6 +65,7 @@ export function Providers({ children }: { children: ReactNode }) {
             onSessionChange={() => {
               router.refresh();
             }}
+            changeEmail={false}
             avatar
             uploadAvatar={async (file: File) => {
               const formData = new FormData();

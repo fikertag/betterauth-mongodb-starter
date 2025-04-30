@@ -1,6 +1,6 @@
 import { UserButton } from "@daveyplate/better-auth-ui";
 import Link from "next/link";
-import { Menu, Zap } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
@@ -36,7 +36,7 @@ export function Header() {
                 <SheetHeader className="mt-3">
                   <SheetTitle>
                     <span className="text-xl font-semibold flex items-center gap-2">
-                      <Zap size={15} /> Fikiryilkal
+                      Fikiryilkal
                     </span>
                   </SheetTitle>
                   <Separator className="mt-3" />
@@ -74,7 +74,7 @@ export function Header() {
             className="text-xl font-semibold flex items-center gap-2"
           >
             {" "}
-            <Zap size={15} /> Fikiryilkal
+            Fikiryilkal
           </Link>
         </div>
 

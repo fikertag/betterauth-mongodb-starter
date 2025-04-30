@@ -117,7 +117,7 @@ export default function AdminDashboard() {
 
   if (isSessionLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center h-[calc(100vh-57px)]">
         <Skeleton className="h-8 w-[200px]" />
       </div>
     );
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
 
   if (!isAdmin) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center h-[calc(100vh-57px)]">
         <Alert variant="destructive" className="max-w-md">
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>Access Denied</AlertTitle>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <main className="min-h-screen p-4 sm:p-6">
+    <main className="h-[calc(100vh-57px)] p-4 sm:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         <Card className="border-0 bg-transparent shadow-none">
           <CardHeader>
