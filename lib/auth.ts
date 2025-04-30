@@ -4,6 +4,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 // import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
 import { admin } from "better-auth/plugins";
 import dbConnect from "@/lib/mongoose";
+import { sendEmail } from "@/lib/email-service";
 import mongoose from "mongoose";
 
 // const resend = new Resend(process.env.RESEND_API_KEY);
@@ -27,7 +28,14 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    // requireEmailVerification: true,
+    requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Reset Password",
+        html: `Click the link to reset your password: ${url}`,
+      });
+    },
   },
   user: {
     additionalFields: {
@@ -40,26 +48,15 @@ export const auth = betterAuth({
     },
   },
 
-  // emailVerification: {
-  //   sendVerificationEmail: async ({ user, url, token }, request) => {
-  //     const name = user.name || user.email.split("@")[0];
-
-  //     await resend.emails.send({
-  //       from: "better-auth-mongodb-starter",
-  //       to: user.email,
-  //       subject: "Verify your email address",
-  //       react: EmailTemplate({
-  //         action: "Verify Email",
-  //         content: `heloo ${name} /n click the link to verify your email address`,
-  //         heading: "Verify Email",
-  //         siteName: "bettrAuth starter",
-  //         baseUrl: "https://better-auth-mongodb-starter.vercel.app",
-  //         url,
-  //       }),
-  //     });
-  //   },
-  //   autoSignInAfterVerification: true,
-  //   sendOnSignUp: true,
-  // },
+  emailVerification: {
+    enabled: true,
+    sendVerificationEmail: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: "Verify your email",
+        html: `Click the link to verify your email: ${url}`,
+      });
+    },
+  },
   plugins: [admin()],
 });

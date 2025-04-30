@@ -105,7 +105,7 @@ export default function ChatPage() {
                     )}
                   </div>
                   <div
-                    className={`px-3 py-2 text-sm rounded-md max-w-xs text-wrap  ${
+                    className={`px-3 py-2 text-sm rounded-md break-words max-w-xs w-fit   ${
                       isCurrentUser
                         ? "bg-blue-500 text-white ml-auto"
                         : "bg-green-900 text-white"
