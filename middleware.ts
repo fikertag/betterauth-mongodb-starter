@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname === "/" && sessionCookie) {
-    return NextResponse.redirect(new URL("/public", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
 
   return NextResponse.next();
