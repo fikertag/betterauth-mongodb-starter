@@ -60,7 +60,6 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  // Real-time updates
   useEffect(() => {
     const channel = pusherClient.subscribe(`global-chat`);
     channel.bind("new-message", (newMessage: Message) => {
@@ -73,7 +72,6 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, []);
 
-  // Initial fetch
   useEffect(() => {
     if (session?.user.id) {
       fetchMessages();

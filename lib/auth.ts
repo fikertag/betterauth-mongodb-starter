@@ -1,13 +1,9 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-// import { Resend } from "resend";
-// import { EmailTemplate } from "@daveyplate/better-auth-ui/server";
 import { admin } from "better-auth/plugins";
 import dbConnect from "@/lib/mongoose";
 import { sendEmail } from "@/lib/email-service";
 import mongoose from "mongoose";
-
-// const resend = new Resend(process.env.RESEND_API_KEY);
 
 await dbConnect();
 

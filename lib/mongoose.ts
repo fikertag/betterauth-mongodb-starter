@@ -17,7 +17,6 @@ if (!MONGODB_URI) {
 
 const cached = globalWithMongoose.mongoose ?? { conn: null, promise: null };
 globalWithMongoose.mongoose = cached;
-// 6. Define the dbConnect function
 async function dbConnect(): Promise<typeof mongoose> {
   if (cached.conn) {
     return cached.conn;
@@ -25,7 +24,7 @@ async function dbConnect(): Promise<typeof mongoose> {
 
   if (!cached.promise) {
     const opts = {
-      bufferCommands: false, // Disable mongoose buffering
+      bufferCommands: false,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
