@@ -30,7 +30,7 @@ interface User {
   email: string;
   emailVerified: boolean;
   image: string;
-  role: "user" | "admin" | "owner";
+  role: "user" | "admin";
   createdAt: Date;
   updatedAt: Date;
   avatarColor?: string;
@@ -61,27 +61,11 @@ export default function AdminDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const isAdmin =
-    session?.user?.role === "admin" || session?.user?.role === "owner";
+  const isAdmin = session?.user?.role === "admin";
 
   const maskEmail = (email: string): string => {
     const [username, domain] = email.split("@");
     return `${username.substring(0, 2)}...@${domain}`;
-  };
-
-  const getAvatarColor = (id: string): string => {
-    const colors = [
-      "#3b82f6",
-      "#8b5cf6",
-      "#ec4899",
-      "#ef4444",
-      "#f97316",
-      "#f59e0b",
-      "#10b981",
-      "#14b8a6",
-      "#06b6d4",
-    ];
-    return colors[parseInt(id.substring(0, 2), 16) % colors.length];
   };
 
   useEffect(() => {
@@ -97,7 +81,7 @@ export default function AdminDashboard() {
               ...user,
               createdAt: new Date(user.createdAt),
               updatedAt: new Date(user.updatedAt),
-              avatarColor: getAvatarColor(user.id),
+              avatarColor: "gray",
               role: user.role as User["role"], // Type assertion for known roles
             })) || [];
 
@@ -113,8 +97,6 @@ export default function AdminDashboard() {
     }
   }, [isAdmin]);
 
-  // ... rest of the component remains the same ...
-
   if (isSessionLoading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-57px)]">
@@ -125,28 +107,37 @@ export default function AdminDashboard() {
 
   if (!isAdmin) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-57px)]">
-        <Alert variant="destructive" className="max-w-md">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Access Denied</AlertTitle>
-          <AlertDescription>
-            This page is for admins only. Your role:{" "}
-            {session?.user?.role || "guest"}
-          </AlertDescription>
-        </Alert>
+      <div className="flex items-center justify-center h-[calc(100vh-57px)] px-4">
+        <div className="max-w-[90%] sm:max-w-md w-full">
+          <Alert variant="destructive">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Access Denied</AlertTitle>
+            <AlertDescription className="break-words">
+              This page is for admins only. Your role:{" "}
+              {session?.user?.role || "guest"}
+              <div className="mt-3 text-sm">
+                Admin demo credentials:
+                <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-md mt-1 font-mono text-xs">
+                  <div>Email: fikeryilkaltages1@gmail.com</div>
+                  <div>Password: 12345678</div>
+                </div>
+              </div>
+            </AlertDescription>
+          </Alert>
+        </div>
       </div>
     );
   }
 
   return (
-    <main className="h-[calc(100vh-57px)] p-4 sm:p-6">
+    <main className="min-h-[calc(100vh-57px)] p-4 sm:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         <Card className="border-0 bg-transparent shadow-none">
           <CardHeader>
             <CardTitle className="text-3xl font-bold ">
               Admin Dashboard
             </CardTitle>
-            <CardDescription className="text-slate-300">
+            <CardDescription className="text-slate-600">
               Manage application users and permissions
             </CardDescription>
           </CardHeader>
@@ -157,11 +148,11 @@ export default function AdminDashboard() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h2 className="text-xl font-bold">User Management</h2>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-600">
                   {users.length} user{users.length !== 1 ? "s" : ""} registered
                 </p>
               </div>
-              <Badge variant="outline" className="text-xs text-slate-400">
+              <Badge variant="outline" className="text-xs text-slate-600">
                 Updated: {new Date().toLocaleTimeString()}
               </Badge>
             </div>
@@ -208,22 +199,19 @@ export default function AdminDashboard() {
                         <div className="flex items-center gap-3">
                           <Avatar>
                             <AvatarImage src={user.image} />
-                            <AvatarFallback
-                              className="text-white"
-                              style={{ backgroundColor: user.avatarColor }}
-                            >
+                            <AvatarFallback>
                               {user.name.charAt(0).toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
                           <div>
                             <p className="font-medium">{user.name}</p>
-                            <p className="text-xs text-slate-400">
+                            <p className="text-xs text-slate-600">
                               ID: {user.id.substring(0, 8)}...
                             </p>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-slate-300">
+                      <TableCell className="text-slate-600">
                         {maskEmail(user.email)}
                       </TableCell>
                       <TableCell>
@@ -237,17 +225,15 @@ export default function AdminDashboard() {
                         <Badge
                           variant="outline"
                           className={
-                            user.role === "owner"
-                              ? "border-amber-500/50 text-amber-400 bg-amber-900/20"
-                              : user.role === "admin"
-                                ? "border-purple-500/50 text-purple-400 bg-purple-900/20"
-                                : "border-blue-500/50 text-blue-400 bg-blue-900/20"
+                            user.role === "admin"
+                              ? "border-purple-500/50 text-purple-400 bg-purple-900/20"
+                              : "border-blue-500/50 text-blue-400 bg-blue-900/20"
                           }
                         >
                           {user.role}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-400">
+                      <TableCell className="text-sm text-slate-600">
                         {user.createdAt.toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
