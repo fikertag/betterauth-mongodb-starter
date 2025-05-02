@@ -32,14 +32,6 @@ export default function ChatPage() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-[calc(100vh-57px)]">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900" />
-      </div>
-    );
-  }
-
   return (
     <div
       style={{ height: "calc(100vh - 57px)" }}
@@ -47,81 +39,85 @@ export default function ChatPage() {
     >
       {/* Chat Messages */}
       <ScrollArea
-        className="flex-1 rounded-md border p-4 mb-4"
+        className="flex-1 rounded-md border p-4 mb-4 relative"
         style={{ height: "400px" }}
       >
-        <div className="flex flex-col gap-6">
-          {messages.map((msg) => {
-            const isCurrentUser = msg.senderId === session?.user.id;
+        {loading ? (
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-black dark:border-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+        ) : (
+          <div className="flex flex-col gap-6">
+            {messages.map((msg) => {
+              const isCurrentUser = msg.senderId === session?.user.id;
 
-            return (
-              <div
-                key={msg._id}
-                className={`flex items-end gap-3 ${
-                  isCurrentUser ? "justify-end" : ""
-                }`}
-              >
-                {!isCurrentUser && (
-                  <Avatar>
-                    <AvatarImage src={msg.senderImage} alt={msg.senderName} />
-                    <AvatarFallback>
-                      {msg.senderName?.charAt(0).toUpperCase() || "D"}
-                    </AvatarFallback>
-                  </Avatar>
-                )}
+              return (
+                <div
+                  key={msg._id}
+                  className={`flex items-end gap-3 ${
+                    isCurrentUser ? "justify-end" : ""
+                  }`}
+                >
+                  {!isCurrentUser && (
+                    <Avatar>
+                      <AvatarImage src={msg.senderImage} alt={msg.senderName} />
+                      <AvatarFallback>
+                        {msg.senderName?.charAt(0).toUpperCase() || "D"}
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
 
-                <div className={`${isCurrentUser ? "text-right" : ""}`}>
-                  <div
-                    className={`flex items-center  ${isCurrentUser ? "justify-end" : "justify-start"} justify-end gap-2 mb-1`}
-                  >
-                    {isCurrentUser ? (
-                      <>
-                        <span className="text-xs text-muted-foreground">
-                          {formatDistanceStrict(
-                            new Date(msg.createdAt),
-                            new Date(),
-                            { addSuffix: true }
-                          )}
-                        </span>
-                        <span className="font-medium text-sm">You</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="font-medium text-sm">
-                          {msg.senderName || "deleted account"}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {formatDistanceStrict(
-                            new Date(msg.createdAt),
-                            new Date(),
-                            { addSuffix: true }
-                          )}
-                        </span>
-                      </>
-                    )}
+                  <div className={`${isCurrentUser ? "text-right" : ""}`}>
+                    <div
+                      className={`flex items-center  ${isCurrentUser ? "justify-end" : "justify-start"} justify-end gap-2 mb-1`}
+                    >
+                      {isCurrentUser ? (
+                        <>
+                          <span className="text-xs text-muted-foreground">
+                            {formatDistanceStrict(
+                              new Date(msg.createdAt),
+                              new Date(),
+                              { addSuffix: true }
+                            )}
+                          </span>
+                          <span className="font-medium text-sm">You</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="font-medium text-sm">
+                            {msg.senderName || "deleted account"}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {formatDistanceStrict(
+                              new Date(msg.createdAt),
+                              new Date(),
+                              { addSuffix: true }
+                            )}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                    <div
+                      className={`px-3 py-2 text-sm rounded-md break-words ${
+                        isCurrentUser
+                          ? "bg-gray-900 text-white ml-auto max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
+                          : "bg-gray-700 text-white  max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
+                      }`}
+                    >
+                      {msg.content}
+                    </div>
                   </div>
-                  <div
-                    className={`px-3 py-2 text-sm rounded-md break-words ${
-                      isCurrentUser
-                        ? "bg-gray-900 text-white ml-auto max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
-                        : "bg-gray-700 text-white  max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
-                    }`}
-                  >
-                    {msg.content}
-                  </div>
+
+                  {isCurrentUser && (
+                    <Avatar>
+                      <AvatarImage src={msg.senderImage} alt="@you" />
+                      <AvatarFallback>Y</AvatarFallback>
+                    </Avatar>
+                  )}
                 </div>
-
-                {isCurrentUser && (
-                  <Avatar>
-                    <AvatarImage src={msg.senderImage} alt="@you" />
-                    <AvatarFallback>Y</AvatarFallback>
-                  </Avatar>
-                )}
-              </div>
-            );
-          })}
-          <div ref={bottomRef} />
-        </div>
+              );
+            })}
+            <div ref={bottomRef} />
+          </div>
+        )}
       </ScrollArea>
 
       {/* Chat Input */}
