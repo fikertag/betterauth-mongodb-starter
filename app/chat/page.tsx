@@ -9,13 +9,10 @@ import { authClient } from "@/lib/auth-client";
 import { useMessages } from "@/context/Message";
 import { formatDistanceStrict } from "date-fns";
 import { SendHorizonal } from "lucide-react";
-// import Picker from "@emoji-mart/react";
-// import "emoji-mart/css/emoji-mart.css";
 export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
-  // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const { messages, sendMessage, loading } = useMessages(); // assuming you have loading in useMessages
+  const { messages, sendMessage, loading } = useMessages();
   const { data: session } = authClient.useSession();
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -30,11 +27,6 @@ export default function ChatPage() {
       setSending(false);
     }
   };
-
-  // const handleEmojiSelect = (emoji: any) => {
-  //   setMessage((prev) => prev + emoji.native);
-  //   setShowEmojiPicker(false);
-  // };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -72,12 +64,16 @@ export default function ChatPage() {
                 {!isCurrentUser && (
                   <Avatar>
                     <AvatarImage src={msg.senderImage} alt={msg.senderName} />
-                    <AvatarFallback>{msg.senderName?.charAt(0)}</AvatarFallback>
+                    <AvatarFallback>
+                      {msg.senderName?.charAt(0).toUpperCase() || "D"}
+                    </AvatarFallback>
                   </Avatar>
                 )}
 
                 <div className={`${isCurrentUser ? "text-right" : ""}`}>
-                  <div className="flex items-end justify-end gap-2 mb-1">
+                  <div
+                    className={`flex items-center  ${isCurrentUser ? "justify-end" : "justify-start"} justify-end gap-2 mb-1`}
+                  >
                     {isCurrentUser ? (
                       <>
                         <span className="text-xs text-muted-foreground">
@@ -92,7 +88,7 @@ export default function ChatPage() {
                     ) : (
                       <>
                         <span className="font-medium text-sm">
-                          {msg.senderName}
+                          {msg.senderName || "deleted account"}
                         </span>
                         <span className="text-xs text-muted-foreground">
                           {formatDistanceStrict(
@@ -105,10 +101,10 @@ export default function ChatPage() {
                     )}
                   </div>
                   <div
-                    className={`px-3 py-2 text-sm rounded-md break-words max-w-xs w-fit   ${
+                    className={`px-3 py-2 text-sm rounded-md break-words ${
                       isCurrentUser
-                        ? "bg-blue-500 text-white ml-auto"
-                        : "bg-green-900 text-white"
+                        ? "bg-gray-900 text-white ml-auto max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
+                        : "bg-gray-700 text-white  max-w-[180px] min-[350px]:max-w-[230px] min-[450px]:max-w-[300px]  sm:max-w-[350px] w-fit"
                     }`}
                   >
                     {msg.content}
@@ -137,19 +133,6 @@ export default function ChatPage() {
             onChange={(e) => setMessage(e.target.value)}
             disabled={sending}
           />
-          {/* <button
-            type="button"
-            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-            className="absolute right-2 top-2 text-gray-400 hover:text-gray-600"
-          >
-            😊
-          </button> */}
-
-          {/* {showEmojiPicker && (
-            <div className="absolute bottom-12 right-0 z-10">
-              <Picker onEmojiSelect={handleEmojiSelect} />
-            </div>
-          )} */}
         </div>
 
         <Button type="submit" disabled={sending || !message.trim()}>
