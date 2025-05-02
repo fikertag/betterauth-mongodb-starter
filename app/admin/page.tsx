@@ -73,7 +73,7 @@ export default function AdminDashboard() {
       const fetchUsers = async () => {
         try {
           const response = (await authClient.admin.listUsers({
-            query: { limit: 50 },
+            query: { sortBy: "createdAt", sortDirection: "desc" },
           })) as UsersResponse;
 
           const userData =
