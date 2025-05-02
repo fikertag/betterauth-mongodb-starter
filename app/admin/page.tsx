@@ -118,7 +118,7 @@ export default function AdminDashboard() {
               <div className="mt-3 text-sm">
                 Admin demo credentials:
                 <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-md mt-1 font-mono text-xs">
-                  <div>Email: fikeryilkaltages1@gmail.com</div>
+                  <div>Email: admin@gmail.com</div>
                   <div>Password: 12345678</div>
                 </div>
               </div>

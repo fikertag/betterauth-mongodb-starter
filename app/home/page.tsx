@@ -1,7 +1,25 @@
 "use client";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 export default function HomePage() {
+  const handleEmailVerification = async () => {
+    if (session?.user.emailVerified) {
+      alert("already verifyed");
+      return;
+    }
+    try {
+      await authClient.sendVerificationEmail({
+        email: "fikeryilkaltages@gmail.com",
+        callbackURL: "/",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { data: session } = authClient.useSession();
+
   return (
     <main
       style={{ minHeight: "calc(100vh - 57px)" }}
@@ -33,6 +51,20 @@ export default function HomePage() {
         </div>
 
         <div className="pt-10 text-sm space-y-2">
+          {!session?.user.emailVerified && (
+            <>
+              {" "}
+              <button
+                className=" underline hover:cursor-pointer underline-offset-4 "
+                onClick={handleEmailVerification}
+              >
+                Verify email
+              </button>
+              <p>
+                to force email verifcation 👉 requireEmailVerification: true,
+              </p>
+            </>
+          )}
           <div>
             Quick access:{" "}
             <Link
