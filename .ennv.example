@@ -1,0 +1,13 @@
+MONGODB_URI=mongodb+srv://here
+BETTER_AUTH_URL=http://localhost:3000 // your host number 
+BETTER_AUTH_SECRET=generate from https://better-auth.vercel.app
+GOOGLE_CLIENT_ID=from google 
+GOOGLE_CLIENT_SECRET=from google 
+CLOUDINARY_CLOUD_NAME=from cloudinary
+CLOUDINARY_API_KEY=from cloudinary
+CLOUDINARY_API_SECRET=from cloudinary
+RESEND_API_KEY=resend
+NEXT_PUBLIC_PUSHER_APP_ID=pusher
+NEXT_PUBLIC_PUSHER_PUBLISHABLE_KEY=pusher
+PUSHER_SECRET=pusher
+NEXT_PUBLIC_PUSHER_CLUSTER=pus
