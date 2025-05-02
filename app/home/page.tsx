@@ -13,7 +13,7 @@ export default function HomePage() {
             Welcome Back
           </h1>
           <p className="text-lg mt-6 max-w-2xl mx-auto">
-            You're now logged in and can access all protected routes.
+            You&apos;re now logged in and can access all protected routes.
           </p>
         </div>
 
@@ -48,13 +48,13 @@ export default function HomePage() {
               /admin
             </Link>
           </div>
-          <p>You're currently viewing the protected home page</p>
+          <p>You&apos;re currently viewing the protected home page</p>
           <p>
             try accessing{" "}
             <Link href="/" className="underline underline-offset-4">
-              " / "
+              &quot; / &quot;
             </Link>{" "}
-            you will be redirected to "/home"
+            you will be redirected to &quot;/home&quot;
           </p>
         </div>
       </div>

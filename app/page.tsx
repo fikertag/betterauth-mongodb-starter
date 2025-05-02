@@ -46,7 +46,7 @@ export default function Home() {
           </Link>{" "}
           (protected routes)
           <p className="mt-1">
-            You'll be redirected to login if not authenticated
+            You&apos;ll be redirected to login if not authenticated
           </p>
         </div>
       </div>
