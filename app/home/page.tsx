@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
 
         <div className="pt-10 text-sm space-y-2">
-          {!session?.user.emailVerified && (
+          {session && !session?.user.emailVerified && (
             <>
               {" "}
               <button
