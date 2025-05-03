@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MessageProvider } from "@/context/Message";
+import { Analytics } from "@vercel/analytics/next";
 
 import { Header } from "@/components/header";
 import type { ReactNode } from "react";
@@ -48,6 +49,7 @@ export default function RootLayout({
               <Header />
 
               {children}
+              <Analytics />
             </div>
           </MessageProvider>
         </Providers>
